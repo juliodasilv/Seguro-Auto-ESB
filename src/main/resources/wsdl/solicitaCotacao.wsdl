@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://seguroauto/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http"
+	name="SeguroAutoService" targetNamespace="http://seguroauto/">
+	<wsdl:types>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://seguroauto/"
+			elementFormDefault="unqualified" targetNamespace="http://seguroauto/" version="1.0">
+			<xs:element name="solicitaCotacao" type="tns:solicitaCotacao" />
+			<xs:element name="solicitaCotacaoResponse" type="tns:solicitaCotacaoResponse" />
+			<xs:complexType name="solicitaCotacao">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="solicitaCotacao" type="tns:solicitacaoCotacaoVO" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="solicitacaoCotacaoVO">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="anoModelo" type="xs:int" />
+					<xs:element minOccurs="0" name="CEPCirculacao" type="xs:string" />
+					<xs:element minOccurs="0" name="cidadeCirculacao" type="xs:string" />
+					<xs:element minOccurs="0" name="cnpjSegurado" type="xs:long" />
+					<xs:element minOccurs="0" name="codigoFipe" type="xs:int" />
+					<xs:element minOccurs="0" name="codigoProduto" type="xs:int" />
+					<xs:element minOccurs="0" name="combustivel" type="xs:string" />
+					<xs:element minOccurs="0" name="cpfSegurado" type="xs:long" />
+					<xs:element minOccurs="0" name="dataNascimento" type="xs:dateTime" />
+					<xs:element minOccurs="0" name="estadoCirculacao" type="xs:string" />
+					<xs:element minOccurs="0" name="nomeSegurado" type="xs:string" />
+					<xs:element minOccurs="0" name="password" type="xs:string" />
+					<xs:element minOccurs="0" name="telefoneSegurado" type="xs:string" />
+					<xs:element minOccurs="0" name="user" type="xs:string" />
+					<xs:element minOccurs="0" name="zeroKM" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="solicitaCotacaoResponse">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="return" type="tns:valorCotacaoVO" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="valorCotacaoVO">
+				<xs:complexContent>
+					<xs:extension base="tns:retornoVO">
+						<xs:sequence>
+							<xs:element minOccurs="0" name="codigoFipe" type="xs:int" />
+							<xs:element minOccurs="0" name="codigoProduto" type="xs:int" />
+							<xs:element minOccurs="0" name="cpf" type="xs:long" />
+							<xs:element minOccurs="0" name="nome" type="xs:string" />
+							<xs:element minOccurs="0" name="numeroCotacao" type="xs:int" />
+							<xs:element minOccurs="0" name="totalParcelas" type="xs:int" />
+							<xs:element minOccurs="0" name="valorDemaisParcelas" type="xs:double" />
+							<xs:element minOccurs="0" name="valorFipe" type="xs:double" />
+							<xs:element minOccurs="0" name="valorPrimeiraParcela" type="xs:double" />
+						</xs:sequence>
+					</xs:extension>
+				</xs:complexContent>
+			</xs:complexType>
+			<xs:complexType name="retornoVO">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="codRetorno" type="xs:int" />
+					<xs:element minOccurs="0" name="retorno" type="xs:string" />
+					<xs:element minOccurs="0" name="sucesso" type="xs:boolean" />
+					<xs:element minOccurs="0" name="user" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="solicitaCotacao">
+		<wsdl:part element="tns:solicitaCotacao" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="solicitaCotacaoResponse">
+		<wsdl:part element="tns:solicitaCotacaoResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="SeguroAuto">
+		<wsdl:operation name="solicitaCotacao">
+			<wsdl:input message="tns:solicitaCotacao" name="solicitaCotacao">
+			</wsdl:input>
+			<wsdl:output message="tns:solicitaCotacaoResponse" name="solicitaCotacaoResponse">
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="SeguroAutoServiceSoapBinding" type="tns:SeguroAuto">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="solicitaCotacao">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input name="solicitaCotacao">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="solicitaCotacaoResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="SeguroAutoService">
+		<wsdl:port binding="tns:SeguroAutoServiceSoapBinding" name="SeguroAutoPort">
+			<soap:address location="http://localhost:8081/solicitaCotacao" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

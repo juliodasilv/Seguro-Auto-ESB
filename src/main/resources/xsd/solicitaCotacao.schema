@@ -1,0 +1,68 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {},
+    "id": "http://example.com/example.json",
+    "properties": {
+        "CEPCirculacao": {
+            "id": "/properties/CEPCirculacao",
+            "type": "string"
+        },
+        "anoModelo": {
+            "id": "/properties/anoModelo",
+            "type": "integer"
+        },
+        "cidadeCirculacao": {
+            "id": "/properties/cidadeCirculacao",
+            "type": "string"
+        },
+        "cnpjSegurado": {
+            "id": "/properties/cnpjSegurado",
+            "type": "string"
+        },
+        "codigoFipe": {
+            "id": "/properties/codigoFipe",
+            "type": "string"
+        },
+        "codigoProduto": {
+            "id": "/properties/codigoProduto",
+            "type": "integer"
+        },
+        "combustivel": {
+            "id": "/properties/combustivel",
+            "type": "string"
+        },
+        "cpfSegurado": {
+            "id": "/properties/cpfSegurado",
+            "type": "string"
+        },
+        "dataNascimento": {
+            "id": "/properties/dataNascimento",
+            "type": "string"
+        },
+        "estadoCirculacao": {
+            "id": "/properties/estadoCirculacao",
+            "type": "string"
+        },
+        "nomeSegurado": {
+            "id": "/properties/nomeSegurado",
+            "type": "string"
+        },
+        "password": {
+            "id": "/properties/password",
+            "type": "string"
+        },
+        "telefoneSegurado": {
+            "id": "/properties/telefoneSegurado",
+            "type": "string"
+        },
+        "user": {
+            "id": "/properties/user",
+            "type": "string"
+        },
+        "zeroKM": {
+            "id": "/properties/zeroKM",
+            "type": "string"
+        }
+    },
+    "type": "object"
+}

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:jersey="http://www.mulesoft.org/schema/mule/jersey" xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/apikit http://www.mulesoft.org/schema/mule/apikit/current/mule-apikit.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+http://www.mulesoft.org/schema/mule/jersey http://www.mulesoft.org/schema/mule/jersey/current/mule-jersey.xsd
+http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd
+http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd" >
+    <http:listener-config name="HTTP_Listener_Proxy_SOAP" host="0.0.0.0" port="8081" basePath="cotacao" doc:name="HTTP Listener Configuration"/>
+    <http:request-config name="HTTP_Request_Configuration" host="localhost" port="8082" doc:name="HTTP Request Configuration">
+        <http:raml-api-configuration location="/solicitaCotacao.raml"/>
+    </http:request-config>
+    <http:listener-config name="HTTP_Listener_Servico_Rest" host="0.0.0.0" port="8082" doc:name="HTTP Listener Configuration"/>
+    <flow name="SolicitaCotacaoFlow">
+        <http:listener config-ref="HTTP_Listener_Proxy_SOAP" path="/proxy" doc:name="Listener 8081"/>
+        <cxf:proxy-service payload="body" doc:name="Proxy" namespace="http://seguroauto/" service="SeguroAutoService" wsdlLocation="wsdl/solicitaCotacao.wsdl"/>
+        <logger level="INFO" doc:name="Mensagem soap" message="Mensagem SOAP: #[message.payloadAs(java.lang.String)]"/>
+        <dw:transform-message doc:name="XML to JSON" metadata:id="7ee2d100-9482-4e79-a53e-0fc22ce4dd84">
+            <dw:input-payload doc:sample="sample_data\solicitaCotacao_1.xml" mimeType="application/xml"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+%namespace ns0 http://seguroauto/
+---
+{
+	CEPCirculacao: payload.ns0#solicitaCotacao.solicitaCotacao.CEPCirculacao,
+	anoModelo: payload.ns0#solicitaCotacao.solicitaCotacao.anoModelo,
+	cidadeCirculacao: payload.ns0#solicitaCotacao.solicitaCotacao.cidadeCirculacao,
+	cnpjSegurado: payload.ns0#solicitaCotacao.solicitaCotacao.cnpjSegurado as :string,
+	codigoFipe: payload.ns0#solicitaCotacao.solicitaCotacao.codigoFipe as :string,
+	codigoProduto: payload.ns0#solicitaCotacao.solicitaCotacao.codigoProduto,
+	combustivel: payload.ns0#solicitaCotacao.solicitaCotacao.combustivel,
+	cpfSegurado: payload.ns0#solicitaCotacao.solicitaCotacao.cpfSegurado as :string,
+	dataNascimento: payload.ns0#solicitaCotacao.solicitaCotacao.dataNascimento as :string,
+	estadoCirculacao: payload.ns0#solicitaCotacao.solicitaCotacao.estadoCirculacao,
+	nomeSegurado: payload.ns0#solicitaCotacao.solicitaCotacao.nomeSegurado,
+	password: payload.ns0#solicitaCotacao.solicitaCotacao.password,
+	telefoneSegurado: payload.ns0#solicitaCotacao.solicitaCotacao.telefoneSegurado,
+	user: payload.ns0#solicitaCotacao.solicitaCotacao.user,
+	zeroKM: payload.ns0#solicitaCotacao.solicitaCotacao.zeroKM
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <logger message="JSON: #[message.payloadAs(java.lang.String)]" level="INFO" doc:name="Json"/>
+        <http:request config-ref="HTTP_Request_Configuration" path="/seguro/solicitaCotacao" method="POST" doc:name="Request 8082 - POST"/>
+        <logger level="INFO" doc:name="Mensagem de resposta" message="Mensagem de resposta: #[message.payloadAs(java.lang.String)]"/>
+        <dw:transform-message doc:name="JSON to XML" metadata:id="ddc183e6-ce2e-4cca-8a56-707411f063ba">
+            <dw:input-payload mimeType="application/json"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/xml
+%namespace ns0 http://seguroauto/
+---
+{
+	ns0#valorCotacaoVO: {
+		codRetorno: payload.codRetorno,
+		retorno: payload.retorno,
+		sucesso: payload.sucesso,
+		user: payload.user,
+		codigoFipe: payload.codigoFipe,
+		codigoProduto: payload.codigoProduto,
+		cpf: payload.cpf,
+		nome: payload.nome,
+		numeroCotacao: payload.numeroCotacao,
+		totalParcelas: payload.totalParcelas,
+		valorDemaisParcelas: payload.valorDemaisParcelas,
+		valorFipe: payload.valorFipe,
+		valorPrimeiraParcela: payload.valorPrimeiraParcela
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <logger level="INFO" doc:name="xml de retorno" message="XML de retorno: #[message.payloadAs(java.lang.String)]"/>
+    </flow>
+    <flow name="get:/solicitaCotacao">
+        <http:listener config-ref="HTTP_Listener_Servico_Rest" path="/*" doc:name="Listener 8082" allowedMethods="POST"/>
+        <logger message="Requisi&#231;&#227;o REST: #[message.payloadAs(java.lang.String)]" level="INFO" doc:name="Requisi&#231;&#227;o ao servi&#231;o REST"/>
+        <jersey:resources doc:name="SeguroAuto">
+            <component class="solicitacotacao.ws.SeguroAuto"/>
+
+        </jersey:resources>
+    </flow>
+
+</mule>

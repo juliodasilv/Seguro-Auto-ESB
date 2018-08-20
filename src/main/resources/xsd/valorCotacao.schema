@@ -1,0 +1,60 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {},
+    "id": "http://example.com/example.json",
+    "properties": {
+        "codRetorno": {
+            "id": "/properties/codRetorno",
+            "type": "integer"
+        },
+        "codigoFipe": {
+            "id": "/properties/codigoFipe",
+            "type": "integer"
+        },
+        "codigoProduto": {
+            "id": "/properties/codigoProduto",
+            "type": "integer"
+        },
+        "cpf": {
+            "id": "/properties/cpf",
+            "type": "integer"
+        },
+        "nome": {
+            "id": "/properties/nome",
+            "type": "string"
+        },
+        "numeroCotacao": {
+            "id": "/properties/numeroCotacao",
+            "type": "integer"
+        },
+        "retorno": {
+            "id": "/properties/retorno",
+            "type": "string"
+        },
+        "sucesso": {
+            "id": "/properties/sucesso",
+            "type": "boolean"
+        },
+        "totalParcelas": {
+            "id": "/properties/totalParcelas",
+            "type": "integer"
+        },
+        "user": {
+            "id": "/properties/user",
+            "type": "string"
+        },
+        "valorDemaisParcelas": {
+            "id": "/properties/valorDemaisParcelas",
+            "type": "integer"
+        },
+        "valorFipe": {
+            "id": "/properties/valorFipe",
+            "type": "integer"
+        },
+        "valorPrimeiraParcela": {
+            "id": "/properties/valorPrimeiraParcela",
+            "type": "integer"
+        }
+    },
+    "type": "object"
+}

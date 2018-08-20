@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ns0:solicitaCotacao xmlns:ns0="http://psaldobanco/">
+  <solicitaCotacao>
+    <anoModelo>1</anoModelo>
+    <CEPCirculacao>????</CEPCirculacao>
+    <cidadeCirculacao>????</cidadeCirculacao>
+    <cnpjSegurado>1</cnpjSegurado>
+    <codigoFipe>1</codigoFipe>
+    <codigoProduto>1</codigoProduto>
+    <combustivel>????</combustivel>
+    <cpfSegurado>1</cpfSegurado>
+    <dataNascimento>2003-10-01T23:57:59Z</dataNascimento>
+    <estadoCirculacao>????</estadoCirculacao>
+    <nomeSegurado>????</nomeSegurado>
+    <password>????</password>
+    <telefoneSegurado>????</telefoneSegurado>
+    <user>????</user>
+    <zeroKM>????</zeroKM>
+  </solicitaCotacao>
+</ns0:solicitaCotacao>

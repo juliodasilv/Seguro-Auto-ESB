@@ -1,0 +1,67 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://seguroauto/" elementFormDefault="unqualified" targetNamespace="http://seguroauto/" version="1.0">
+
+  <xs:element name="solicitaCotacao" type="tns:solicitaCotacao"/>
+  <xs:element name="solicitacaoCotacaoVO" type="tns:solicitacaoCotacaoVO"/>
+  <xs:element name="valorCotacaoVO" type="tns:valorCotacaoVO"/>
+  <xs:element name="retornoVO" type="tns:retornoVO"/>
+  <xs:element name="solicitaCotacaoResponse" type="tns:solicitaCotacaoResponse"/>
+
+  <xs:complexType name="solicitaCotacao">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="solicitaCotacao" type="tns:solicitacaoCotacaoVO"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="solicitacaoCotacaoVO">
+    <xs:sequence>
+		<xs:element minOccurs="0" name="anoModelo" type="xs:int" />
+		<xs:element minOccurs="0" name="CEPCirculacao" type="xs:string" />
+		<xs:element minOccurs="0" name="cidadeCirculacao" type="xs:string" />
+		<xs:element minOccurs="0" name="cnpjSegurado" type="xs:long" />
+		<xs:element minOccurs="0" name="codigoFipe" type="xs:int" />
+		<xs:element minOccurs="0" name="codigoProduto" type="xs:int" />
+		<xs:element minOccurs="0" name="combustivel" type="xs:string" />
+		<xs:element minOccurs="0" name="cpfSegurado" type="xs:long" />
+		<xs:element minOccurs="0" name="dataNascimento" type="xs:dateTime" />
+		<xs:element minOccurs="0" name="estadoCirculacao" type="xs:string" />
+		<xs:element minOccurs="0" name="nomeSegurado" type="xs:string" />
+		<xs:element minOccurs="0" name="password" type="xs:string" />
+		<xs:element minOccurs="0" name="telefoneSegurado" type="xs:string" />
+		<xs:element minOccurs="0" name="user" type="xs:string" />
+		<xs:element minOccurs="0" name="zeroKM" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="solicitaCotacaoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:valorCotacaoVO"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="valorCotacaoVO">
+	<xs:complexContent>
+		<xs:extension base="tns:retornoVO">
+			<xs:sequence>
+				<xs:element minOccurs="0" name="codigoFipe" type="xs:int" />
+				<xs:element minOccurs="0" name="codigoProduto" type="xs:int" />
+				<xs:element minOccurs="0" name="cpf" type="xs:long" />
+				<xs:element minOccurs="0" name="nome" type="xs:string" />
+				<xs:element minOccurs="0" name="numeroCotacao" type="xs:int" />
+				<xs:element minOccurs="0" name="totalParcelas" type="xs:int" />
+				<xs:element minOccurs="0" name="valorDemaisParcelas" type="xs:double" />
+				<xs:element minOccurs="0" name="valorFipe" type="xs:double" />
+				<xs:element minOccurs="0" name="valorPrimeiraParcela" type="xs:double" />
+			</xs:sequence>
+		</xs:extension>
+	</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="retornoVO">
+		<xs:sequence>
+			<xs:element minOccurs="0" name="codRetorno" type="xs:int" />
+			<xs:element minOccurs="0" name="retorno" type="xs:string" />
+			<xs:element minOccurs="0" name="sucesso" type="xs:boolean" />
+			<xs:element minOccurs="0" name="user" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>  
+
+</xs:schema>

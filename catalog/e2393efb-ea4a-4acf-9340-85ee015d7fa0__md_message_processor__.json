@@ -1,0 +1,16 @@
+{
+    "inputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "XML_To_JSON",
+            "typeId": "solicitaCotacao"
+        }
+    },
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "json"
+        }
+    },
+    "id": "e2393efb-ea4a-4acf-9340-85ee015d7fa0",
+    "version": "5.2.0.0"
+}
